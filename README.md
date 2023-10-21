@@ -128,3 +128,26 @@ See detailed [cookiecutter-django Heroku documentation](http://cookiecutter-djan
 ### Docker
 
 See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+
+
+### PostGis
+
+```bash
+docker-compose exec postgres psql -U <your_username> -h <your_host> -p <your_port> <your_database>
+```
+
+```sql
+CREATE EXTENSION postgis;
+```
+
+```sql
+SELECT postgis_full_version();
+```
+
+```sql
+\q
+```
+
+```bash
+docker-compose exec postgres psql -U <your_username> -c "SELECT PostGIS_Version();"
+```

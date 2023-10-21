@@ -11,7 +11,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
   # psycopg2 dependencies
-  libpq-dev
+  libpq-dev \
+  # GDAL dependencies
+  binutils \
+  libproj-dev \
+  gdal-bin
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
@@ -33,10 +37,21 @@ ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
 
-
+RUN apt-get update
 # devcontainer dependencies and utils
-RUN apt-get update && apt-get install --no-install-recommends -y \
-  sudo git bash-completion nano ssh
+RUN apt-get install --no-install-recommends -y \
+  sudo git bash-completion nano ssh  \
+  # GDAL dependencies
+  gdal-bin libgdal-dev \
+  # numpy dependency
+  python3-numpy
+
+# Set the environment variables for GDAL
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
+
+# Install GDAL library
+RUN pip install GDAL==$(gdal-config --version) --config-settings=build_ext --config-settings="-I/usr/include/gdal"
 
 # Create devcontainer user and add it to sudoers
 RUN groupadd --gid 1000 dev-user \
