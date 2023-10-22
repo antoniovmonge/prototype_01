@@ -16,6 +16,10 @@ Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings
 ### Docker setting up
 
 ```bash
+docker compose -f local.yml up --build
+```
+
+```bash
 set COMPOSE_FILE=local.yml
 ```
 
@@ -129,11 +133,10 @@ See detailed [cookiecutter-django Heroku documentation](http://cookiecutter-djan
 
 See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
 
-
 ### PostGis
 
 ```bash
-docker-compose exec postgres psql -U <your_username> -h <your_host> -p <your_port> <your_database>
+docker-compose -f local.yml exec postgres psql -U <your_username> -h <your_host> -p <your_port> <your_database>
 ```
 
 ```sql
@@ -149,5 +152,5 @@ SELECT postgis_full_version();
 ```
 
 ```bash
-docker-compose exec postgres psql -U <your_username> -c "SELECT PostGIS_Version();"
+docker-compose -f local.yml exec postgres psql -U <your_username> -c "SELECT PostGIS_Version();"
 ```
