@@ -30,6 +30,10 @@ docker compose up
 #### Execute Management Commands
 
 ```bash
+docker compose -f local.yml run --rm django python manage.py makemigrations
+```
+
+```bash
 docker compose run --rm django python manage.py migrate
 ```
 
@@ -153,4 +157,10 @@ SELECT postgis_full_version();
 
 ```bash
 docker-compose -f local.yml exec postgres psql -U <your_username> -c "SELECT PostGIS_Version();"
+```
+
+### Start new app
+
+```bash
+docker-compose -f local.yml exec django python manage.py startapp <app_name>
 ```
