@@ -16,6 +16,10 @@ Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings
 ### Docker setting up
 
 ```bash
+docker compose -f local.yml up --build
+```
+
+```bash
 set COMPOSE_FILE=local.yml
 ```
 

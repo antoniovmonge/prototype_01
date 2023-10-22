@@ -11,7 +11,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
   # psycopg2 dependencies
-  libpq-dev
+  libpq-dev \
+  # postgis dependencies
+  binutils \
+  libproj-dev \
+  gdal-bin \
+  python3-gdal
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
@@ -36,7 +41,10 @@ WORKDIR ${APP_HOME}
 
 # devcontainer dependencies and utils
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  sudo git bash-completion nano ssh
+  sudo git bash-completion nano ssh \
+  binutils \
+  libproj-dev \
+  gdal-bin
 
 # Create devcontainer user and add it to sudoers
 RUN groupadd --gid 1000 dev-user \
